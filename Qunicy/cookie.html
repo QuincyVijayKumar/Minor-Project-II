@@ -1,0 +1,172 @@
+<html>
+<head>
+  <title>Login and Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+
+    form {
+      max-width: 300px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    nav {
+      background-color: #eee;
+      padding: 10px;
+      width: 200px;
+      height: 100vh;
+      position: fixed;
+    }
+
+    main {
+      margin-left: 220px;
+      padding: 20px;
+      display: none; 
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Login and Dashboard</h1>
+  </header>
+
+  <!-- Login -->
+  <form id="loginForm" action="javascript:void(0);" onsubmit="login()">
+    <label>Username:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label>Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <!-- Dashboard Section -->
+  <nav id="dashboardNav">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Profile</a></li>
+      <li><a href="#">Settings</a></li>
+      <li><a href="#">Logout</a></li>
+    </ul>
+  </nav>
+
+  <main id="dashboardMain">
+    <h2>Welcome to your Dashboard!</h2>
+    <p>This is a simple HTML dashboard. Customize it based on your needs.</p>
+  </main>
+
+  <script>
+    function setCookie(cname, cvalue, exdays) {
+      var d = new Date();
+      d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+      var expires = "expires=" + d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const loginForm = document.getElementById('loginForm');
+      const dashboardNav = document.getElementById('dashboardNav');
+      const dashboardMain = document.getElementById('dashboardMain');
+
+      // Check if the login is successful 
+      const isLoginSuccessful = true; // NEED TO PUT ACTUAL LOGIC
+
+      if (isLoginSuccessful) {
+        // Store username in a cookie
+        setCookie('username', username, 30);
+
+        loginForm.style.display = 'none';
+        dashboardNav.style.display = 'block';
+        dashboardMain.style.display = 'block';
+      }
+    }
+
+    // Check for existing login (if cookie exists)
+    window.onload = function () {
+      const usernameCookie = getCookie('username');
+      if (usernameCookie !== "") {
+        const loginForm = document.getElementById('loginForm');
+        const dashboardNav = document.getElementById('dashboardNav');
+        const dashboardMain = document.getElementById('dashboardMain');
+
+        loginForm.style.display = 'none';
+        dashboardNav.style.display = 'block';
+        dashboardMain.style.display = 'block';
+      }
+    };
+  </script>
+
+</body>
+</html>
